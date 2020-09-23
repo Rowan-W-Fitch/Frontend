@@ -5,6 +5,8 @@ import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import { Redirect } from 'react-router-dom';
+import { Home } from '../home/home';
 
 export class Register extends React.Component{
 
@@ -15,7 +17,7 @@ export class Register extends React.Component{
       email: '',
       username: '',
       password: '',
-      password2: ''
+      password2: '',
     }
   }
 
@@ -83,7 +85,7 @@ export class Register extends React.Component{
           username: this.state.username,
           password: this.state.password
         })
-      }).then((res)=>{ return res.json() }).then((json)=>{ console.log(json) });
+      }).then((res)=>{ return res.json() }).then((json)=>{ this.setState({ auth: json.token, id: json.id }) });
     }
     catch(e){
       alert(e);

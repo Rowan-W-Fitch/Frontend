@@ -5,6 +5,8 @@ import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import logo from '../imgs/logo.png'
+import { Route } from 'react-router-dom';
 
 export class Login extends React.Component{
 
@@ -14,7 +16,7 @@ export class Login extends React.Component{
     this.state = {
       email: '',
       username: '',
-      password: ''
+      password: '',
     }
   }
 
@@ -51,7 +53,7 @@ export class Login extends React.Component{
           username: this.state.username,
           password: this.state.password
         })
-      }).then((res)=>{ return res.json() }).then((json)=>{ console.log(json) });
+      }).then((res)=>{ return res.json() }).then((json)=>{ this.setState({ auth: json.token, id: json.id }) });
     }
     catch(e){
       alert(e);
@@ -67,7 +69,9 @@ export class Login extends React.Component{
                 <Col>
                   <Card style={{ width: '25rem' }}>
                     <Card.Header>
-                      <b>Sign In to Optimal Stoke</b>
+                      <img src = {logo} width = {80} height = {80}/>
+                      {' '}
+                      <b>Sign In</b>
                     </Card.Header>
                     <Card.Body>
                     <Form>

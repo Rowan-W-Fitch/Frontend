@@ -1,15 +1,27 @@
 import React from 'react';
 import './App.css';
-import { Router } from "react-router-dom";
-import history from "./services/history"
-import Routes from "./routes";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Register, Login } from './components/register/index';
+import { Home } from './components/home/index';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-      <Router history = {history}>
-        <Routes/>
-      </Router>
+    <BrowserRouter>
+      <Switch>
+
+        <Route exact path = "/" component = {Login}/>
+
+        <Route path = "/register" component = {Register}/>
+        /*
+        <Route path = "/get_spots" >
+        </Route>
+        */
+
+        <Route path = "/home" component = {Home}/>
+
+      </Switch>
+    </BrowserRouter>
   );
 }
 
