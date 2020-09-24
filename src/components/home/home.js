@@ -17,7 +17,8 @@ export class Home extends React.Component{
     this.state = {
       startLat: null,
       startLon: null,
-      getSpots: false
+      getSpots: false,
+      Spots: null
     }
   }
 
@@ -37,6 +38,28 @@ export class Home extends React.Component{
         startLat: lat,
         startLon: lon
       })
+    }
+  }
+
+  async getSpot(){
+    try {
+      const res = await fetch('http://localhost:8000/get_spots',
+      {
+        method: "post",
+        mode: "cors",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          max_distance: 30,
+          latitude: this.state.startLat,
+          longitude: this.state.startLon
+        })
+      }).then((re)=>{ return re.json() }).then((json)=>{ this.setState({ Spots: json, getSpots: false }) });
+    }
+    catch(e){
+      alert(e);
     }
   }
 
@@ -92,8 +115,29 @@ export class Home extends React.Component{
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button disabled = { this.state.startLat && this.state.startLon ? false : true }>Get Spots!</Button>
+            <Button disabled = { this.state.startLat && this.state.startLon ? false : true } onClick = {() => this.getSpot()}>Get Spots!</Button>
           </Modal.Footer>
+        </Modal>
+
+        <Modal
+        show={this.state.Spots ? true : false}
+        onHide={() => this.setState({ Spots: null })}
+        backdrop="static"
+        keyboard={false}
+        size = "lg"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Your Top Beach</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Container>
+                <Row>
+                  <p>{this.state.Spots ? `${this.state.Spots.best_name}` : ''}</p>
+                </Row>
+              </Container>
+            </Form>
+          </Modal.Body>
         </Modal>
 
       </Container>
