@@ -5,10 +5,12 @@ import Container from 'react-bootstrap/Container'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
+import MapCard from './map/mapCard'
 import Form from 'react-bootstrap/Form'
 import { GoogleComponent } from 'react-google-location'
 import banzai from '../imgs/banzai.jpg'
 import './home.css'
+
 
 export class Home extends React.Component{
 
@@ -133,7 +135,13 @@ export class Home extends React.Component{
             <Form>
               <Container>
                 <Row>
-                  <p>{this.state.Spots ? `${this.state.Spots.best_name}` : ''}</p>
+                  <MapCard
+                  startLat = {this.state.startLat}
+                  startLng = {this.state.startLon}
+                  beachName = {this.state.Spots? this.state.Spots.best_name : null}
+                  endLat = {this.state.Spots ? this.state.Spots.best_lat : null}
+                  endLng = {this.state.Spots ? this.state.Spots.best_lon : null}
+                  />
                 </Row>
               </Container>
             </Form>
