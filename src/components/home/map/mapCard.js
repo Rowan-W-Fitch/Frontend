@@ -28,8 +28,7 @@ export class MapCard extends React.Component{
     const startLng = this.props.startLng
     const endLat = this.props.endLat
     const endLng = this.props.endLng
-
-    console.log(startLat, startLng)
+    
     const MapWithADirectionsRenderer = compose(
       withProps({
         googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${APIKey}&v=3.exp&libraries=geometry,drawing,places`,

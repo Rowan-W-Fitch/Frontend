@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import MapCard from './map/mapCard'
 import Form from 'react-bootstrap/Form'
+import Spinner from 'react-bootstrap/Spinner'
 import { GoogleComponent } from 'react-google-location'
 import banzai from '../imgs/banzai.jpg'
 import './home.css'
@@ -20,8 +21,11 @@ export class Home extends React.Component{
       startLat: null,
       startLon: null,
       getSpots: false,
-      Spots: null
+      Spots: null,
+      loading: false,
+      maxDistance: null
     }
+    this.handleDistance = this.handleDistance.bind(this);
   }
 
   geoLocate(){
@@ -43,8 +47,15 @@ export class Home extends React.Component{
     }
   }
 
+  handleDistance(event) {
+    this.setState({
+      maxDistance: parseInt(event.target.value)
+    })
+  }
+
   async getSpot(){
     try {
+      await this.setState({ loading: true })
       const res = await fetch('http://localhost:8000/get_spots',
       {
         method: "post",
@@ -54,11 +65,11 @@ export class Home extends React.Component{
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          max_distance: 30,
+          max_distance: this.state.maxDistance,
           latitude: this.state.startLat,
           longitude: this.state.startLon
         })
-      }).then((re)=>{ return re.json() }).then((json)=>{ this.setState({ Spots: json, getSpots: false }) });
+      }).then((re)=>{ return re.json() }).then((json)=>{ this.setState({ Spots: json, getSpots: false, loading: false }) });
     }
     catch(e){
       alert(e);
@@ -96,10 +107,10 @@ export class Home extends React.Component{
           <Modal.Body>
             <Form>
               <Container>
-                <Row>
+                <Row className="align-items-center">
                   <Col>
                     <Form.Group>
-                      <Form.Label>Enter Your Address</Form.Label>
+                      <Form.Label><b>Enter Your Address Here</b></Form.Label>
                       <GoogleComponent
                         apiKey={APIKey}
                         coordinates = {true}
@@ -107,17 +118,42 @@ export class Home extends React.Component{
                       />
                     </Form.Group>
                   </Col>
-                  <Col>
-                    <Button onClick = {() => this.geoLocate()}>
+                  <Col xs ="auto" >
+                    <Button className = 'mt-3' onClick = {() => this.geoLocate()}>
                       Use Your Current Location
                     </Button>
+                  </Col>
+                </Row>
+                <Row className = "align-items-center">
+                  <Col xs = "auto">
+                    <Form.Group controlId="exampleForm.ControlSelect1">
+                      <Form.Label><b>How Far Are You Willing to Drive?</b></Form.Label>
+                      <Form.Control as="select" onChange={this.handleDistance}>
+                        <option value = {10} >10 miles (normal)</option>
+                        <option value = {20} >20 miles (kinda far)</option>
+                        <option value = {30} >30 miles (pretty far)</option>
+                        <option value = {40} >40 miles (very dedicated)</option>
+                        <option value = {50} >50 miles (I'm desparate!)</option>
+                        <option value = {75} >75 miles (I live in San Bernardino)</option>
+                        <option value = {100} >100 miles (I'm taking a daytrip)</option>
+                        <option value = {1000} >I'm looking to score anywhere</option>
+                      </Form.Control>
+                    </Form.Group>
                   </Col>
                 </Row>
               </Container>
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button disabled = { this.state.startLat && this.state.startLon ? false : true } onClick = {() => this.getSpot()}>Get Spots!</Button>
+            <Button
+            disabled = { this.state.startLat && this.state.startLon && this.state.loading===false ? false : true }
+            onClick = {() => this.getSpot()}
+            >
+              {this.state.loading && (
+                <Spinner animation="border" />
+              )}
+              {this.state.loading ? null: "Get Spots!"}
+            </Button>
           </Modal.Footer>
         </Modal>
 
