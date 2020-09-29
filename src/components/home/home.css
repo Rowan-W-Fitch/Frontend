@@ -1,4 +1,14 @@
-img{
+.content {
+    height: 100vh;
+}
+
+.content::before {
+  content: '';
+  display: block;
+  position: absolute;
   width: 100%;
   height: 100%;
+  background: url(../imgs/banzai.jpg) no-repeat center center fixed;
+  background-size: cover;
+  opacity: 0.8;
 }
