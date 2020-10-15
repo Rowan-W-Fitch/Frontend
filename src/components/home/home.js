@@ -11,6 +11,7 @@ import Spinner from 'react-bootstrap/Spinner'
 import Image from 'react-bootstrap/Image'
 import ImageFadeIn from "react-image-fade-in";
 import { GoogleComponent } from 'react-google-location'
+import InfiniteScroll from 'react-infinite-scroll-component'
 import banzai from '../imgs/banzai.jpg'
 import rowan from '../imgs/rowan.JPG'
 import './home.css'
@@ -72,69 +73,106 @@ export class Home extends React.Component{
           latitude: this.state.startLat,
           longitude: this.state.startLon
         })
-      }).then((re)=>{ return re.json() }).then((json)=>{ this.setState({ Spots: json, getSpots: false, loading: false }) });
+      }).then((re)=>{ return re.json() }).then((json)=>{ this.setState({ Spots: JSON.parse(json), getSpots: false, loading: false }) });
     }
     catch(e){
       alert(e);
     }
   }
 
+  fetchMoreData = () => {
+    // a fake async api call like which sends
+    // 20 more records in 1.5 secs
+    setTimeout(() => {
+      this.setState({
+        Spots: this.state.Spots.concat(Array.from({ length: this.state.Spots.length }))
+      });
+    }, 1500);
+  }
+
   render(){
     const APIKey = process.env.REACT_APP_GOOGLE_API_KEY
+    console.log(this.state.Spots)
     return(
       <div className = 'content' >
         <Container fluid>
-          <Row className = 'mt-3'>
-            <Col sm = {6}/>
-            <Col>
-              <Card>
-                <Card.Header className="text-center"><b>Welcome To Optimal Stoke!</b></Card.Header>
-                <Card.Body>
-                  <ul>First, you enter your starting address (or you can share your current location)</ul>
-                  <ul>Next, enter the max distance you're willing to drive for a surf</ul>
-                  <ul>Finally, sit back and let the amazing ranking algorithm decide for you where to surf, no more anxiety on where to go!</ul>
-                  <div className="text-center">
-                    <Button onClick = {() => this.setState({ getSpots: true })}>
-                    Get Optimal Spot
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
 
-          <Row className = 'mt-3 mb-3'>
-            <Col sm = {6}/>
+          <Row>
+            <Col sm = {6}>
+              <Row className = "mt-3 justify-content-center">
+                <div className = "text-center">
+                  <b><h3>Your Top Spots</h3></b>
+                </div>
+              </Row>
+              {this.state.Spots ?
+                (<Row className = "mt-3 justify-content-center">
+                {
+                  this.state.Spots && this.state.Spots.length > 0 ?
+                  (
+                    <InfiniteScroll
+                      dataLength={this.state.Spots.length} //This is important field to render the next data
+                      next={this.fetchMoreData}
+                      hasMore={true}
+                      endMessage={
+                        <p style={{ textAlign: 'center' }}>
+                          <b>Optimize Your Stoke!</b>
+                        </p>
+                      }>
+                      {this.state.Spots.map( s => (<Row className = "mt-3"><MapCard startLat={this.state.startLat} startLng = {this.state.startLon} endLat = {s.lat} endLng = {s.lon} beachName = {s.name}/></Row>))}
+                    </InfiniteScroll>
+                  )
+                  :
+                  <h5>No Spots are Close Enough!</h5>
+                }
+                </Row>) : (<Row className = "justify-content-center mt-10"><b><h5>Find Your Spots!</h5></b></Row>)}
+            </Col>
             <Col>
-              <Card>
-                <Card.Header className = "text-center"><b>About the Dev</b></Card.Header>
-                <Card.Body>
-                  <Row>
-                  <Col sm={6}>
-                    <p>
-                      My name is Rowan Fitch, and I'm a senior at Occidental College in Los Angeles, but I grew up surfing in Jax Beach, Florida. When I came to college in Los Angeles, I faced an interesting dillemma.
-                      My problem was that Occidental College was about an hour drive away from any beach worth surfing at. As a result, I actually have a wider array of beaches I can surf at, since there isn't a clear
-                      cut obvious choice. Malibu surfrider is about an hour north, Huntington Beach is about an hour south, and El Porto is about an hour west. So, I created this project as an attempt to solve my
-                      peculiar problem. I also wanted to share my knowledge of surf spots I have come to know and love here in California (HB always will have my heart) with anyone else who uses this. I hope your stoke is
-                      optimized! -Rowan Fitch
-                    </p>
-                    <br/>
-                    <Button onClick = {() => this.setState({ getSpots: true })}>
+              <Row>
+                <Card className = "mt-3" style = {{width: "95%"}}>
+                  <Card.Header className="text-center"><b>Welcome To Optimal Stoke!</b></Card.Header>
+                  <Card.Body>
+                    <li>First, you enter your starting address (or you can share your current location)</li>
+                    <li>Next, enter the max distance you're willing to drive for a surf</li>
+                    <li>Finally, sit back and let the amazing ranking algorithm decide for you where to surf, no more anxiety on where to go!</li>
+                    <div className="text-center mt-2">
+                      <Button onClick = {() => this.setState({ getSpots: true })}>
                       Get Optimal Spot
-                    </Button>
-                  </Col>
-                  <Col className = "text-center">
-                    <Image src={rowan} style = {{ width: 350, height: 350 }}roundedCircle />
-                    <br/>
-                    <br/>
-                    {'Me at HB'}
-                  </Col>
-                  </Row>
-                </Card.Body>
-              </Card>
+                      </Button>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Row>
+              <Row className = "mt-3">
+                <Card style = {{width: "95%"}}>
+                  <Card.Header className = "text-center"><b>About the Dev</b></Card.Header>
+                  <Card.Body>
+                    <Row>
+                    <Col sm={6}>
+                      <p>
+                        My name is Rowan Fitch, and I'm a senior at Occidental College in Los Angeles, but I grew up surfing in Jax Beach, Florida. When I came to college in Los Angeles, I faced an interesting dillemma.
+                        My problem was that Occidental College was about an hour drive away from any beach worth surfing at. As a result, I actually have a wider array of beaches I can surf at, since there isn't a clear
+                        cut obvious choice. Malibu surfrider is about an hour north, Huntington Beach is about an hour south, and El Porto is about an hour west. So, I created this project as an attempt to solve my
+                        peculiar problem. I also wanted to share my knowledge of surf spots I have come to know and love here in California (HB always will have my heart) with anyone else who uses this. I hope your stoke is
+                        optimized! -Rowan Fitch
+                      </p>
+                      <br/>
+                      <Button onClick = {() => this.setState({ getSpots: true })}>
+                        Get Optimal Spot
+                      </Button>
+                    </Col>
+                    <Col className = "text-center">
+                      <Image src={rowan} style = {{ width: 350, height: 350 }}roundedCircle />
+                      <br/>
+                      <br/>
+                      {'Me at HB'}
+                    </Col>
+                    </Row>
+                  </Card.Body>
+                </Card>
+              </Row>
             </Col>
           </Row>
-
+        </Container>
           <Modal
           show={this.state.getSpots}
           onHide={() => this.setState({ getSpots: false })}
@@ -170,12 +208,14 @@ export class Home extends React.Component{
                       <Form.Group controlId="exampleForm.ControlSelect1">
                         <Form.Label><b>How Far Are You Willing to Drive?</b></Form.Label>
                         <Form.Control as="select" onChange={this.handleDistance}>
+                          <option>Choose Distance</option>
                           <option value = {10} >10 miles (normal)</option>
                           <option value = {20} >20 miles (kinda far)</option>
                           <option value = {30} >30 miles (pretty far)</option>
                           <option value = {40} >40 miles (very dedicated)</option>
-                          <option value = {50} >50 miles (I'm desparate!)</option>
-                          <option value = {75} >75 miles (I live in San Bernardino)</option>
+                          <option value = {50} >50 miles (I'm frothing)</option>
+                          <option value = {60} >60 miles (I'm desparate!)</option>
+                          <option value = {75} >75 miles (I'm a weekend warrior)</option>
                           <option value = {100} >100 miles (I'm taking a daytrip)</option>
                           <option value = {1000} >I'm looking to score anywhere</option>
                         </Form.Control>
@@ -187,7 +227,7 @@ export class Home extends React.Component{
             </Modal.Body>
             <Modal.Footer>
               <Button
-              disabled = { this.state.startLat && this.state.startLon && this.state.loading===false ? false : true }
+              disabled = { this.state.startLat && this.state.startLon && this.state.maxDistance && this.state.loading===false ? false : true }
               onClick = {() => this.getSpot()}
               >
                 {this.state.loading && (
@@ -197,34 +237,6 @@ export class Home extends React.Component{
               </Button>
             </Modal.Footer>
           </Modal>
-
-          <Modal
-          show={this.state.Spots ? true : false}
-          onHide={() => this.setState({ Spots: null })}
-          backdrop="static"
-          keyboard={false}
-          size = "lg"
-          >
-            <Modal.Header closeButton>
-              <Modal.Title>Your Top Beach</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <Container>
-                  <Row>
-                    <MapCard
-                    startLat = {this.state.startLat}
-                    startLng = {this.state.startLon}
-                    beachName = {this.state.Spots? this.state.Spots.best_name : null}
-                    endLat = {this.state.Spots ? this.state.Spots.best_lat : null}
-                    endLng = {this.state.Spots ? this.state.Spots.best_lon : null}
-                    />
-                  </Row>
-                </Container>
-              </Form>
-            </Modal.Body>
-          </Modal>
-        </Container>
       </div>
     );
   }
