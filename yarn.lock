@@ -8888,6 +8888,18 @@ react-infinite-scroll-component@^5.1.0:
   dependencies:
     throttle-debounce "^2.1.0"
 
+react-infinite-scroll-container@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/react-infinite-scroll-container/-/react-infinite-scroll-container-1.0.12.tgz#c911803254009679bb0b062cc334435bac564524"
+  integrity sha512-iJk33RL/8W0JaklIQTCtj4hyQ870xQ71s70Go8JjWdbB6/Bwi7lULrpc3UEeJiN1tzZEG1Qq8cGI9BKAHBPceA==
+
+react-infinite-scroller@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/react-infinite-scroller/-/react-infinite-scroller-1.2.4.tgz#f67eaec4940a4ce6417bebdd6e3433bfc38826e9"
+  integrity sha512-/oOa0QhZjXPqaD6sictN2edFMsd3kkMiE19Vcz5JDgHpzEJVqYcmq+V3mkwO88087kvKGe1URNksHEOt839Ubw==
+  dependencies:
+    prop-types "^15.5.8"
+
 react-is@^16.12.0, react-is@^16.3.2, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"

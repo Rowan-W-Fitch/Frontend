@@ -11,7 +11,7 @@ import Spinner from 'react-bootstrap/Spinner'
 import Image from 'react-bootstrap/Image'
 import ImageFadeIn from "react-image-fade-in";
 import { GoogleComponent } from 'react-google-location'
-import InfiniteScroll from 'react-infinite-scroll-component'
+import InfiniteScroll from 'react-infinite-scroller'
 import banzai from '../imgs/banzai.jpg'
 import rowan from '../imgs/rowan.JPG'
 import './home.css'
@@ -98,7 +98,7 @@ export class Home extends React.Component{
         <Container fluid>
 
           <Row>
-            <Col sm = {6}>
+            <Col>
               <Row className = "mt-3 justify-content-center">
                 <div className = "text-center">
                   <b><h3>Your Top Spots</h3></b>
@@ -109,17 +109,15 @@ export class Home extends React.Component{
                 {
                   this.state.Spots && this.state.Spots.length > 0 ?
                   (
-                    <InfiniteScroll
-                      dataLength={this.state.Spots.length} //This is important field to render the next data
-                      next={this.fetchMoreData}
-                      hasMore={true}
-                      endMessage={
-                        <p style={{ textAlign: 'center' }}>
-                          <b>Optimize Your Stoke!</b>
-                        </p>
-                      }>
-                      {this.state.Spots.map( s => (<Row className = "mt-3"><MapCard startLat={this.state.startLat} startLng = {this.state.startLon} endLat = {s.lat} endLng = {s.lon} beachName = {s.name}/></Row>))}
-                    </InfiniteScroll>
+                    <div style={{height:"672px", width: "90%", overflowY: "scroll", overflowX: "hidden", direction: "rtl"}}>
+                      <InfiniteScroll
+                      pageStart={0}
+                      hasMore={false}
+                      useWindow={false}
+                      >
+                        {this.state.Spots.map( s => (<Row className = "mb-3"><MapCard startLat={this.state.startLat} startLng = {this.state.startLon} endLat = {s.lat} endLng = {s.lon} beachName = {s.name}/></Row>))}
+                      </InfiniteScroll>
+                    </div>
                   )
                   :
                   <h5>No Spots are Close Enough!</h5>
