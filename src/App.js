@@ -1,27 +1,27 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Register, Login } from './components/register/index';
-import { Home } from './components/home/index';
+import Register from './components/register/register';
+import Login from './components/register/login';
+import { Provider } from 'unstated';
+import Home from './components/home/home';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
+    <Provider>
+      <BrowserRouter>
+        <Switch>
 
-        <Route exact path = "/" component = {Login}/>
+          <Route exact path = "/" component = {Login}/>
 
-        <Route path = "/register" component = {Register}/>
-        /*
-        <Route path = "/get_spots" >
-        </Route>
-        */
+          <Route path = "/register" component = {Register}/>
 
-        <Route path = "/home" component = {Home}/>
+          <Route path = "/home" component = {Home}/>
 
-      </Switch>
-    </BrowserRouter>
+        </Switch>
+      </BrowserRouter>
+    </Provider>
   );
 }
 

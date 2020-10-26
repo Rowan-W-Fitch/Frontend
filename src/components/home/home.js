@@ -12,12 +12,14 @@ import Image from 'react-bootstrap/Image'
 import ImageFadeIn from "react-image-fade-in";
 import { GoogleComponent } from 'react-google-location'
 import InfiniteScroll from 'react-infinite-scroller'
-import banzai from '../imgs/banzai.jpg'
 import rowan from '../imgs/rowan.JPG'
 import './home.css'
+import AuthContainer from '../../containers/AuthContainer'
+import { Redirect } from 'react-router-dom'
+import { Subscribe } from 'unstated';
 
 
-export class Home extends React.Component{
+class Home extends React.Component{
 
   constructor(props){
     super(props);
@@ -92,19 +94,15 @@ export class Home extends React.Component{
 
   render(){
     const APIKey = process.env.REACT_APP_GOOGLE_API_KEY
-    console.log(this.state.Spots)
+    const logged = this.props.auth.checkAuth()
     return(
-      <div className = 'content' >
+      logged ?
+      (<div className = 'content' >
         <Container fluid>
 
           <Row>
             <Col>
-              <Row className = "mt-3 justify-content-center">
-                <div className = "text-center">
-                  <b><h3>Your Top Spots</h3></b>
-                </div>
-              </Row>
-              {this.state.Spots ?
+              {this.state.Spots &&
                 (<Row className = "mt-3 justify-content-center">
                 {
                   this.state.Spots && this.state.Spots.length > 0 ?
@@ -122,7 +120,7 @@ export class Home extends React.Component{
                   :
                   <h5>No Spots are Close Enough!</h5>
                 }
-                </Row>) : (<Row className = "justify-content-center mt-10"><b><h5>Find Your Spots!</h5></b></Row>)}
+                </Row>)}
             </Col>
             <Col>
               <Row>
@@ -235,8 +233,17 @@ export class Home extends React.Component{
               </Button>
             </Modal.Footer>
           </Modal>
-      </div>
+      </div>) :
+      (<Redirect to = "/" />)
     );
   }
 
+}
+
+export default props => {
+  return (
+    <Subscribe to={[AuthContainer]}>
+      {(a) => <Home auth = {a}/>}
+    </Subscribe>
+  )
 }

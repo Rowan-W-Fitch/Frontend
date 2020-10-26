@@ -6,9 +6,13 @@ import Card from 'react-bootstrap/Card'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import logo from '../imgs/logo.png'
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom'
+import AuthContainer from '../../containers/AuthContainer'
+import { Subscribe } from 'unstated';
+import Home from '../home/home'
 
-export class Login extends React.Component{
+
+class Login extends React.Component{
 
   constructor(props){
     super(props);
@@ -40,20 +44,8 @@ export class Login extends React.Component{
 
   async sendData(){
     try{
-      let res = await fetch('http://localhost:8000/u_token',
-      {
-        method: 'post',
-        mode: 'cors',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: this.state.email,
-          username: this.state.username,
-          password: this.state.password
-        })
-      }).then((res)=>{ return res.json() }).then((json)=>{ this.setState({ auth: json.token, id: json.id }) });
+      const loggedIn = await this.props.auth.getAuth(this.state.email, this.state.username, this.state.password)
+      if(loggedIn === true ) this.setState({ logged: true })
     }
     catch(e){
       alert(e);
@@ -62,43 +54,57 @@ export class Login extends React.Component{
 
   render(){
     return(
-            <Container>
-              <Row style = {{ marginTop: '75px' }}>
-                <Col>
-                </Col>
-                <Col>
-                  <Card style={{ width: '25rem' }}>
-                    <Card.Header>
-                      <img src = {logo} width = {80} height = {80}/>
-                      {' '}
-                      <b>Sign In</b>
-                    </Card.Header>
-                    <Card.Body>
-                    <Form>
-                      <Form.Group controlId="formUser">
-                        <Form.Label>User Name</Form.Label>
-                        <Form.Control type="text" value = {this.state.username} onChange = {this.handleUChange}/>
-                      </Form.Group>
-                      <Form.Group controlId="formGroupEmail">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" value = {this.state.email} onChange = {this.handleEmailChange} />
-                      </Form.Group>
-                      <Form.Group controlId="formGroupPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" value = {this.state.password} onChange = {this.handlePassChange} />
-                      </Form.Group>
-                      <Button style = {{ marginTop: '25px' }} variant="primary" size = "lg" block onClick = { () => this.sendData() }>
-                        Login
-                      </Button>
-                    </Form>
-                    </Card.Body>
-                  </Card>
-                </Col>
-                <Col>
-                </Col>
-              </Row>
-            </Container>
-          );
-  }
+      this.state.logged?
+      (
+        <Redirect to = "/home" />
+      )
+      :
+      (
+        <Container>
+          <Row style = {{ marginTop: '75px' }}>
+            <Col>
+            </Col>
+            <Col>
+              <Card style={{ width: '25rem' }}>
+                <Card.Header>
+                  <img src = {logo} width = {80} height = {80}/>
+                  {' '}
+                  <b>Sign In</b>
+                </Card.Header>
+                <Card.Body>
+                <Form>
+                  <Form.Group controlId="formUser">
+                    <Form.Label>User Name</Form.Label>
+                    <Form.Control type="text" value = {this.state.username} onChange = {this.handleUChange}/>
+                  </Form.Group>
+                  <Form.Group controlId="formGroupEmail">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control type="email" value = {this.state.email} onChange = {this.handleEmailChange} />
+                  </Form.Group>
+                  <Form.Group controlId="formGroupPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" value = {this.state.password} onChange = {this.handlePassChange} />
+                  </Form.Group>
+                  <Button style = {{ marginTop: '25px' }} variant="primary" size = "lg" block onClick = { () => this.sendData() }>
+                    Login
+                  </Button>
+                </Form>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col>
+            </Col>
+          </Row>
+        </Container>
+      ))
+    }
 
+}
+
+export default props => {
+  return (
+    <Subscribe to={[AuthContainer]}>
+      {(a) => <Login auth = {a}/>}
+    </Subscribe>
+  )
 }

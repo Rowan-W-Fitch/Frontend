@@ -7,8 +7,11 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { Redirect } from 'react-router-dom';
 import { Home } from '../home/home';
+import AuthContainer from '../../containers/AuthContainer'
+import { Subscribe } from 'unstated';
 
-export class Register extends React.Component{
+
+class Register extends React.Component{
 
   constructor(props){
     super(props);
@@ -72,20 +75,8 @@ export class Register extends React.Component{
 
   async postData(){
     try{
-      let res = await fetch('http://localhost:8000/register',
-      {
-        method: 'post',
-        mode: 'cors',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: this.state.email,
-          username: this.state.username,
-          password: this.state.password
-        })
-      }).then((res)=>{ return res.json() }).then((json)=>{ this.setState({ auth: json.token, id: json.id }) });
+      const loggedIn = await this.props.auth.createAuth(this.state.email, this.state.username, this.state.password)
+      if(loggedIn === true) this.setState({ logged: true })
     }
     catch(e){
       alert(e);
@@ -101,45 +92,56 @@ export class Register extends React.Component{
 
   render(){
     return(
-            <Container>
-              <Row style = {{ marginTop: '75px' }}>
-                <Col>
-                </Col>
-                <Col>
-                  <Card style={{ width: '25rem' }}>
-                    <Card.Header>
-                      <b>Register Your Optimal Stoke Account</b>
-                    </Card.Header>
-                    <Card.Body>
-                    <Form>
-                      <Form.Group controlId="formUser">
-                        <Form.Label>User Name</Form.Label>
-                        <Form.Control type="text" placeholder="Dude123"  ref = "user_name_input" value = {this.state.username} onChange = {this.handleUChange}/>
-                      </Form.Group>
-                      <Form.Group controlId="formGroupEmail">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" placeholder="hbshreder@gmail.com" ref = "email_input" value = {this.state.email} onChange = {this.handleEmailChange} />
-                      </Form.Group>
-                      <Form.Group controlId="formGroupPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="surferDude123" ref = "pass1_input" value = {this.state.password} onChange = {this.handlePassChange} />
-                      </Form.Group>
-                      <Form.Group controlId="formGroupPassword2">
-                        <Form.Label>Verify Password</Form.Label>
-                        <Form.Control type="password" ref = "pass2_input" value = {this.state.password2} onChange = {this.handlePass2Change}/>
-                      </Form.Group>
-                      <Button style = {{ marginTop: '25px' }} variant="primary" size = "lg" block onClick = { () => this.sendData() }>
-                        Register
-                      </Button>
-                    </Form>
-                    </Card.Body>
-                  </Card>
-                </Col>
-                <Col>
-                </Col>
-              </Row>
-            </Container>
-          );
+      this.state.logged ?
+      (<Redirect to = "/home" />)
+      :
+      (<Container>
+        <Row style = {{ marginTop: '75px' }}>
+          <Col>
+          </Col>
+          <Col>
+            <Card style={{ width: '25rem' }}>
+              <Card.Header>
+                <b>Register Your Optimal Stoke Account</b>
+              </Card.Header>
+              <Card.Body>
+              <Form>
+                <Form.Group controlId="formUser">
+                  <Form.Label>User Name</Form.Label>
+                  <Form.Control type="text" placeholder="Dude123"  ref = "user_name_input" value = {this.state.username} onChange = {this.handleUChange}/>
+                </Form.Group>
+                <Form.Group controlId="formGroupEmail">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control type="email" placeholder="hbshreder@gmail.com" ref = "email_input" value = {this.state.email} onChange = {this.handleEmailChange} />
+                </Form.Group>
+                <Form.Group controlId="formGroupPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control type="password" placeholder="surferDude123" ref = "pass1_input" value = {this.state.password} onChange = {this.handlePassChange} />
+                </Form.Group>
+                <Form.Group controlId="formGroupPassword2">
+                  <Form.Label>Verify Password</Form.Label>
+                  <Form.Control type="password" ref = "pass2_input" value = {this.state.password2} onChange = {this.handlePass2Change}/>
+                </Form.Group>
+                <Button style = {{ marginTop: '25px' }} variant="primary" size = "lg" block onClick = { () => this.sendData() }>
+                  Register
+                </Button>
+              </Form>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col>
+          </Col>
+        </Row>
+      </Container>)
+    );
   }
 
+}
+
+export default props => {
+  return (
+    <Subscribe to={[AuthContainer]}>
+      {(a) => <Register auth = {a}/>}
+    </Subscribe>
+  )
 }
