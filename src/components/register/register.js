@@ -9,7 +9,7 @@ import { Redirect } from 'react-router-dom';
 import { Home } from '../home/home';
 import AuthContainer from '../../containers/AuthContainer'
 import { Subscribe } from 'unstated';
-
+import "./auth.css"
 
 class Register extends React.Component{
 
@@ -95,44 +95,46 @@ class Register extends React.Component{
       this.state.logged ?
       (<Redirect to = "/home" />)
       :
-      (<Container>
-        <Row style = {{ marginTop: '75px' }}>
-          <Col>
-          </Col>
-          <Col>
-            <Card style={{ width: '25rem' }}>
-              <Card.Header>
-                <b>Register Your Optimal Stoke Account</b>
-              </Card.Header>
-              <Card.Body>
-              <Form>
-                <Form.Group controlId="formUser">
-                  <Form.Label>User Name</Form.Label>
-                  <Form.Control type="text" placeholder="Dude123"  ref = "user_name_input" value = {this.state.username} onChange = {this.handleUChange}/>
-                </Form.Group>
-                <Form.Group controlId="formGroupEmail">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control type="email" placeholder="hbshreder@gmail.com" ref = "email_input" value = {this.state.email} onChange = {this.handleEmailChange} />
-                </Form.Group>
-                <Form.Group controlId="formGroupPassword">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="surferDude123" ref = "pass1_input" value = {this.state.password} onChange = {this.handlePassChange} />
-                </Form.Group>
-                <Form.Group controlId="formGroupPassword2">
-                  <Form.Label>Verify Password</Form.Label>
-                  <Form.Control type="password" ref = "pass2_input" value = {this.state.password2} onChange = {this.handlePass2Change}/>
-                </Form.Group>
-                <Button style = {{ marginTop: '25px' }} variant="primary" size = "lg" block onClick = { () => this.sendData() }>
-                  Register
-                </Button>
-              </Form>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col>
-          </Col>
-        </Row>
-      </Container>)
+      (
+      <div className = 'content'>
+        <Container>
+          <Row>
+            <Col>
+            </Col>
+            <Col>
+              <Card style={{ marginTop: "20%", marginLeft: "45%",  width: "50rem", height: "60vh"}}>
+                <Card.Header>
+                  <b>Register Your Optimal Stoke Account</b>
+                </Card.Header>
+                <Card.Body>
+                <Form>
+                  <Form.Group controlId="formUser">
+                    <Form.Label>User Name</Form.Label>
+                    <Form.Control type="text" placeholder="Dude123"  ref = "user_name_input" value = {this.state.username} onChange = {this.handleUChange}/>
+                  </Form.Group>
+                  <Form.Group controlId="formGroupEmail">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control type="email" placeholder="hbshreder@gmail.com" ref = "email_input" value = {this.state.email} onChange = {this.handleEmailChange} />
+                  </Form.Group>
+                  <Form.Group controlId="formGroupPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" placeholder="surferDude123" ref = "pass1_input" value = {this.state.password} onChange = {this.handlePassChange} />
+                  </Form.Group>
+                  <Form.Group controlId="formGroupPassword2">
+                    <Form.Label>Verify Password</Form.Label>
+                    <Form.Control type="password" ref = "pass2_input" value = {this.state.password2} onChange = {this.handlePass2Change}/>
+                  </Form.Group>
+                  <Button style = {{ marginTop: '25px' }} variant="primary" size = "lg" block onClick = { () => this.sendData() }>
+                    Register
+                  </Button>
+                </Form>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    )
     );
   }
 

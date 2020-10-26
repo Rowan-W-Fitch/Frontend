@@ -5,12 +5,16 @@ import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import {
+  Icon,
+  InputGroup
+} from "@blueprintjs/core"
 import logo from '../imgs/logo.png'
-import { Route, Redirect } from 'react-router-dom'
+import { Route, Redirect, Link } from 'react-router-dom'
 import AuthContainer from '../../containers/AuthContainer'
 import { Subscribe } from 'unstated';
 import Home from '../home/home'
-
+import "./auth.css"
 
 class Login extends React.Component{
 
@@ -60,42 +64,43 @@ class Login extends React.Component{
       )
       :
       (
-        <Container>
-          <Row style = {{ marginTop: '75px' }}>
-            <Col>
-            </Col>
-            <Col>
-              <Card style={{ width: '25rem' }}>
-                <Card.Header>
-                  <img src = {logo} width = {80} height = {80}/>
-                  {' '}
-                  <b>Sign In</b>
-                </Card.Header>
-                <Card.Body>
-                <Form>
-                  <Form.Group controlId="formUser">
-                    <Form.Label>User Name</Form.Label>
-                    <Form.Control type="text" value = {this.state.username} onChange = {this.handleUChange}/>
-                  </Form.Group>
-                  <Form.Group controlId="formGroupEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" value = {this.state.email} onChange = {this.handleEmailChange} />
-                  </Form.Group>
-                  <Form.Group controlId="formGroupPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" value = {this.state.password} onChange = {this.handlePassChange} />
-                  </Form.Group>
-                  <Button style = {{ marginTop: '25px' }} variant="primary" size = "lg" block onClick = { () => this.sendData() }>
-                    Login
-                  </Button>
-                </Form>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col>
-            </Col>
-          </Row>
-        </Container>
+        <div className = 'content'>
+          <Container>
+            <Row>
+              <Col>
+              </Col>
+              <Col>
+                <Card style={{ marginTop: "25%", marginLeft: "45%", width: "50rem", height: "50vh" }}>
+                  <Card.Header>
+                    <b>Sign In</b>
+                  </Card.Header>
+                  <Card.Body>
+                  <Form>
+                    <Form.Group controlId="formUser">
+                      <Form.Label>User Name</Form.Label>
+                      <Form.Control type="text" value = {this.state.username} onChange = {this.handleUChange} defaultValue="Bob" />
+                    </Form.Group>
+                    <Form.Group controlId="formGroupEmail">
+                      <Form.Label>Email</Form.Label>
+                      <Form.Control type="email" value = {this.state.email} onChange = {this.handleEmailChange} />
+                    </Form.Group>
+                    <Form.Group controlId="formGroupPassword">
+                      <Form.Label>Password</Form.Label>
+                      <Form.Control type="password" value = {this.state.password} onChange = {this.handlePassChange} />
+                    </Form.Group>
+                    <Button style = {{ marginTop: '25px', height: "100%" }} variant="primary" size = "lg" block onClick = { () => this.sendData() }>
+                      Login
+                    </Button>
+                  </Form>
+                  <div style = {{marginTop: "2%" }}>
+                    <Link to={"/register"}><b>Don't Have An Account?</b></Link>
+                  </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
+        </div>
       ))
     }
 
