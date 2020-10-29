@@ -5,11 +5,11 @@ import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { Home } from '../home/home';
 import AuthContainer from '../../containers/AuthContainer'
 import { Subscribe } from 'unstated';
-import "./auth.css"
+import jax from "../imgs/jax.jpg"
 
 class Register extends React.Component{
 
@@ -91,12 +91,28 @@ class Register extends React.Component{
   }
 
   render(){
+    const styles = {
+      content:{
+        minHeight: "100vh",
+        height: "100%",
+        display: "block",
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        backgroundImage: `url(${jax})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        opacity: 1.6,
+      }
+    }
+    const logCheck = this.props.auth.checkAuth()
     return(
-      this.state.logged ?
+      this.state.logged || logCheck ?
       (<Redirect to = "/home" />)
       :
       (
-      <div className = 'content'>
+      <div style = {styles.content}>
         <Container>
           <Row>
             <Col>
@@ -128,6 +144,9 @@ class Register extends React.Component{
                     Register
                   </Button>
                 </Form>
+                <div style = {{marginTop: "2%" }}>
+                  <Link to={"/"}><b>Already Have An Account?</b></Link>
+                </div>
                 </Card.Body>
               </Card>
             </Col>

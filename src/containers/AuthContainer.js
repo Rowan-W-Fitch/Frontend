@@ -1,9 +1,10 @@
-import { Container } from 'unstated';
+import { Container } from 'unstated'
+import Cookies from 'js-cookie'
 
 class AuthContainer extends Container {
 
   state = {
-    user: null
+    user: Cookies.get("token") || null
   }
 
   async createAuth(email, username, password){
@@ -28,6 +29,7 @@ class AuthContainer extends Container {
           id: res.id
         }
       })
+      Cookies.set("token", res.token)
       return true
     }
     catch(e){
@@ -57,6 +59,7 @@ class AuthContainer extends Container {
           id: res.id
         }
       })
+      Cookies.set("token", res.token)
       return true
     }
     catch(e){
@@ -65,8 +68,15 @@ class AuthContainer extends Container {
   }
 
   checkAuth(){
-    if(this.state.user) return true
+    if(this.state.user && this.state.user != "null") return true
     else return false
+  }
+
+  logOut(){
+    Cookies.remove("token")
+    this.setState({
+      user: null
+    })
   }
 
 }

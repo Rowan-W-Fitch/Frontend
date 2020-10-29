@@ -99,7 +99,6 @@ class Home extends React.Component{
       logged ?
       (<div className = 'content' >
         <Container fluid>
-
           <Row>
             <Col>
               {this.state.Spots &&
@@ -152,8 +151,8 @@ class Home extends React.Component{
                         optimized! -Rowan Fitch
                       </p>
                       <br/>
-                      <Button onClick = {() => this.setState({ getSpots: true })}>
-                        Get Optimal Spot
+                      <Button onClick = { () => this.props.auth.logOut() }>
+                        Log Out
                       </Button>
                     </Col>
                     <Col className = "text-center">

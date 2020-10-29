@@ -10,11 +10,11 @@ import {
   InputGroup
 } from "@blueprintjs/core"
 import logo from '../imgs/logo.png'
+import pavones from "../imgs/Pavones.jpg"
 import { Route, Redirect, Link } from 'react-router-dom'
 import AuthContainer from '../../containers/AuthContainer'
 import { Subscribe } from 'unstated';
 import Home from '../home/home'
-import "./auth.css"
 
 class Login extends React.Component{
 
@@ -57,14 +57,30 @@ class Login extends React.Component{
   }
 
   render(){
+    const styles = {
+      content:{
+        minHeight: "100vh",
+        height: "100%",
+        display: "block",
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        backgroundImage: `url(${pavones})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        opacity: 1.6,
+      }
+    }
+    const logCheck = this.props.auth.checkAuth()
     return(
-      this.state.logged?
+      this.state.logged || logCheck ?
       (
         <Redirect to = "/home" />
       )
       :
       (
-        <div className = 'content'>
+        <div style = {styles.content}>
           <Container>
             <Row>
               <Col>
