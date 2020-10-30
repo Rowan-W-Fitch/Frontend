@@ -9,12 +9,12 @@ import {
   Icon,
   InputGroup
 } from "@blueprintjs/core"
-import logo from '../imgs/logo.png'
 import pavones from "../imgs/Pavones.jpg"
 import { Route, Redirect, Link } from 'react-router-dom'
 import AuthContainer from '../../containers/AuthContainer'
 import { Subscribe } from 'unstated';
 import Home from '../home/home'
+import logo2 from '../imgs/logo2.png'
 
 class Login extends React.Component{
 
@@ -86,9 +86,9 @@ class Login extends React.Component{
               <Col>
               </Col>
               <Col>
-                <Card style={{ marginTop: "25%", marginLeft: "45%", width: "50rem", height: "50vh" }}>
+                <Card style={{ marginTop: "25%", marginLeft: "45%", width: "50rem", height: "55vh" }}>
                   <Card.Header>
-                    <b>Sign In</b>
+                    <img src = {logo2} width="50" height="50"/><b>Sign In</b>
                   </Card.Header>
                   <Card.Body>
                   <Form>

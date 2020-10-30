@@ -8,6 +8,8 @@ import Modal from 'react-bootstrap/Modal'
 import MapCard from './map/mapCard'
 import Form from 'react-bootstrap/Form'
 import Spinner from 'react-bootstrap/Spinner'
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
 import Image from 'react-bootstrap/Image'
 import ImageFadeIn from "react-image-fade-in";
 import { GoogleComponent } from 'react-google-location'
@@ -17,6 +19,7 @@ import './home.css'
 import AuthContainer from '../../containers/AuthContainer'
 import { Redirect } from 'react-router-dom'
 import { Subscribe } from 'unstated';
+import logo2 from '../imgs/logo2.png'
 
 
 class Home extends React.Component{
@@ -98,32 +101,25 @@ class Home extends React.Component{
     return(
       logged ?
       (<div className = 'content' >
+        <Navbar bg="light" variant = "light">
+          <Navbar.Brand>
+          <img
+            src={logo2}
+            width="50"
+            height="50"
+          />
+          </Navbar.Brand>
+          <Nav className="mr-auto">
+            <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="/map">Spot Map</Nav.Link>
+          </Nav>
+          <Button onClick = { () => this.props.auth.logOut() }>Log out</Button>
+        </Navbar>
         <Container fluid>
           <Row>
             <Col>
-              {this.state.Spots &&
-                (<Row className = "mt-3 justify-content-center">
-                {
-                  this.state.Spots && this.state.Spots.length > 0 ?
-                  (
-                    <div style={{height:"672px", width: "90%", overflowY: "scroll", overflowX: "hidden", direction: "rtl"}}>
-                      <InfiniteScroll
-                      pageStart={0}
-                      hasMore={false}
-                      useWindow={false}
-                      >
-                        {this.state.Spots.map( s => (<Row className = "mb-3"><MapCard startLat={this.state.startLat} startLng = {this.state.startLon} endLat = {s.lat} endLng = {s.lon} beachName = {s.name}/></Row>))}
-                      </InfiniteScroll>
-                    </div>
-                  )
-                  :
-                  <h5>No Spots are Close Enough!</h5>
-                }
-                </Row>)}
-            </Col>
-            <Col>
               <Row>
-                <Card className = "mt-3" style = {{width: "95%"}}>
+                <Card className = "mt-3" style = {{width: "70rem", marginLeft: "40%"}}>
                   <Card.Header className="text-center"><b>Welcome To Optimal Stoke!</b></Card.Header>
                   <Card.Body>
                     <li>First, you enter your starting address (or you can share your current location)</li>
@@ -137,31 +133,55 @@ class Home extends React.Component{
                   </Card.Body>
                 </Card>
               </Row>
+
               <Row className = "mt-3">
-                <Card style = {{width: "95%"}}>
-                  <Card.Header className = "text-center"><b>About the Dev</b></Card.Header>
+                <Card style = {{width: "70rem", marginLeft: "40%", maxHeight: "580px", overflowY: "scroll"}}>
+                  <Card.Header className = "text-center"><b>{this.state.Spots ? "Your Top Spots" : "About the Dev"}</b></Card.Header>
                   <Card.Body>
-                    <Row>
-                    <Col sm={6}>
-                      <p>
-                        My name is Rowan Fitch, and I'm a senior at Occidental College in Los Angeles, but I grew up surfing in Jax Beach, Florida. When I came to college in Los Angeles, I faced an interesting dillemma.
-                        My problem was that Occidental College was about an hour drive away from any beach worth surfing at. As a result, I actually have a wider array of beaches I can surf at, since there isn't a clear
-                        cut obvious choice. Malibu surfrider is about an hour north, Huntington Beach is about an hour south, and El Porto is about an hour west. So, I created this project as an attempt to solve my
-                        peculiar problem. I also wanted to share my knowledge of surf spots I have come to know and love here in California (HB always will have my heart) with anyone else who uses this. I hope your stoke is
-                        optimized! -Rowan Fitch
-                      </p>
-                      <br/>
-                      <Button onClick = { () => this.props.auth.logOut() }>
-                        Log Out
-                      </Button>
-                    </Col>
-                    <Col className = "text-center">
-                      <Image src={rowan} style = {{ width: 350, height: 350 }}roundedCircle />
-                      <br/>
-                      <br/>
-                      {'Me at HB'}
-                    </Col>
-                    </Row>
+                  {this.state.Spots ?
+                    (<Row className = "mt-3 justify-content-center">
+                    {
+                      this.state.Spots && this.state.Spots.length > 0 ?
+                      (
+                        <div style={{width: "90%"}}>
+                          <InfiniteScroll
+                          pageStart={0}
+                          hasMore={false}
+                          useWindow={false}
+                          >
+                            {this.state.Spots.map( s => (<Row className = "mb-3"><MapCard startLat={this.state.startLat} startLng = {this.state.startLon} endLat = {s.lat} endLng = {s.lon} beachName = {s.name}/></Row>))}
+                          </InfiniteScroll>
+                        </div>
+                      )
+                      :
+                      <h5>No Spots are Close Enough!</h5>
+                    }
+                    </Row>) : (
+                      <Row>
+                      <Col sm={6}>
+                        <p>
+                          My name is Rowan Fitch, and I'm a senior at Occidental College in Los Angeles, but I grew up surfing in Jax Beach, Florida. When I came to college in Los Angeles, I faced an interesting dillemma.
+                          My problem was that Occidental College was about an hour drive away from any beach worth surfing at. As a result, I actually have a wider array of beaches I can surf at, since there isn't a clear
+                          cut obvious choice. Malibu surfrider is about an hour north, Huntington Beach is about an hour south, and El Porto is about an hour west. So, I created this project as an attempt to solve my
+                          peculiar problem. I also wanted to share my knowledge of surf spots I have come to know and love here in California (HB always will have my heart) with anyone else who uses this. I hope your stoke is
+                          optimized! -Rowan Fitch
+                        </p>
+                        <br/>
+                        <img
+                          style = {{marginLeft: "3rem"}}
+                          src={logo2}
+                          width="100"
+                          height="100"
+                        />
+                      </Col>
+                      <Col className = "text-center">
+                        <Image src={rowan} style = {{ width: 350, height: 350 }}roundedCircle />
+                        <br/>
+                        <br/>
+                        {'Me at HB'}
+                      </Col>
+                      </Row>
+                    )}
                   </Card.Body>
                 </Card>
               </Row>

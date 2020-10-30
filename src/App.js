@@ -5,6 +5,7 @@ import Register from './components/register/register';
 import Login from './components/register/login';
 import { Provider } from 'unstated';
 import Home from './components/home/home';
+import Spots from './components/spots/spots';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
           <Route path = "/register" component = {Register}/>
 
           <Route path = "/home" component = {Home}/>
+
+          <Route path = "/map" component = {Spots} />
 
         </Switch>
       </BrowserRouter>

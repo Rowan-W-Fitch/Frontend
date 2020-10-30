@@ -10,6 +10,7 @@ import { Home } from '../home/home';
 import AuthContainer from '../../containers/AuthContainer'
 import { Subscribe } from 'unstated';
 import jax from "../imgs/jax.jpg"
+import logo2 from '../imgs/logo2.png'
 
 class Register extends React.Component{
 
@@ -118,9 +119,9 @@ class Register extends React.Component{
             <Col>
             </Col>
             <Col>
-              <Card style={{ marginTop: "20%", marginLeft: "45%",  width: "50rem", height: "60vh"}}>
+              <Card style={{ marginTop: "20%", marginLeft: "45%",  width: "50rem", height: "65vh"}}>
                 <Card.Header>
-                  <b>Register Your Optimal Stoke Account</b>
+                  <img src = {logo2} width="50" height="50"/><b>Register Your Optimal Stoke Account</b>
                 </Card.Header>
                 <Card.Body>
                 <Form>
