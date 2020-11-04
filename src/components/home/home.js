@@ -135,7 +135,7 @@ class Home extends React.Component{
               </Row>
 
               <Row className = "mt-3">
-                <Card style = {{width: "70rem", marginLeft: "40%", maxHeight: "580px", overflowY: "scroll"}}>
+                <Card style = {{width: "70rem", marginLeft: "40%", maxHeight: "570px",  overflowY: "scroll"}}>
                   <Card.Header className = "text-center"><b>{this.state.Spots ? "Your Top Spots" : "About the Dev"}</b></Card.Header>
                   <Card.Body>
                   {this.state.Spots ?
@@ -143,7 +143,7 @@ class Home extends React.Component{
                     {
                       this.state.Spots && this.state.Spots.length > 0 ?
                       (
-                        <div style={{width: "90%"}}>
+                        <div style={{width: "90%", maxHeight: "430px"}}>
                           <InfiniteScroll
                           pageStart={0}
                           hasMore={false}

@@ -47,6 +47,7 @@ class Spots extends React.Component{
   render(){
     const APIKey = process.env.REACT_APP_GOOGLE_API_KEY
     const logged = this.props.auth.checkAuth()
+    console.log("logged: ", logged)
     const styles = {
       content:{
         minHeight: "100vh",
@@ -82,7 +83,7 @@ class Spots extends React.Component{
         </Navbar>
         <Container fluid>
           <Row>
-            <Card style = {{marginTop: "5px", marginLeft: "45%", width: "65rem", height: "700px"}}>
+            <Card style = {{marginTop: "5px", marginLeft: "15%", width: "70%", height: "700px"}}>
               <Card.Header>
                 All Current Spots
               </Card.Header>
