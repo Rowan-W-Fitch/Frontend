@@ -65,7 +65,7 @@ class Home extends React.Component{
   async getSpot(){
     try {
       await this.setState({ loading: true })
-      const res = await fetch('http://localhost:8000/get_spots',
+      const res = await fetch(`${process.env.REACT_APP_API}/get_spots`,
       {
         method: "post",
         mode: "cors",

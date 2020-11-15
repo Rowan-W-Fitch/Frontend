@@ -33,7 +33,7 @@ class Spots extends React.Component{
 
   async componentDidMount(){
     console.log("making api call")
-    const pts = await fetch('http://localhost:8000/markers',
+    const pts = await fetch(`${process.env.REACT_APP_API}/markers`,
     {
       method: "get",
       mode: "cors",

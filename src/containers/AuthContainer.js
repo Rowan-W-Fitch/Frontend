@@ -9,7 +9,7 @@ class AuthContainer extends Container {
 
   async createAuth(email, username, password){
     try{
-      const res = await fetch('http://localhost:8000/register',
+      const res = await fetch(`${process.env.REACT_APP_API}/register`,
       {
         method: 'post',
         mode: 'cors',
@@ -39,7 +39,7 @@ class AuthContainer extends Container {
 
   async getAuth(email, username, password){
     try{
-      const res = await fetch('http://localhost:8000/u_token',
+      const res = await fetch(`${process.env.REACT_APP_API}/u_token`,
       {
         method: 'post',
         mode: 'cors',
