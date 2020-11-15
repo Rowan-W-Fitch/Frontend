@@ -119,7 +119,7 @@ class Register extends React.Component{
             <Col>
             </Col>
             <Col>
-              <Card style={{ marginTop: "1%", marginLeft: "40%",  width: "400px"}}>
+              <Card style={{ marginTop: "", marginLeft: "40%",  width: "400px"}}>
                 <Card.Header>
                   <img src = {logo2} width="50" height="50"/><b>Register Your Optimal Stoke Account</b>
                 </Card.Header>
@@ -141,7 +141,7 @@ class Register extends React.Component{
                     <Form.Label>Verify Password</Form.Label>
                     <Form.Control type="password" ref = "pass2_input" value = {this.state.password2} onChange = {this.handlePass2Change}/>
                   </Form.Group>
-                  <Button style = {{ marginTop: '25px' }} variant="primary" size = "lg" block onClick = { () => this.sendData() }>
+                  <Button style = {{ marginTop: '20px' }} variant="primary" size = "lg" block onClick = { () => this.sendData() }>
                     Register
                   </Button>
                 </Form>
