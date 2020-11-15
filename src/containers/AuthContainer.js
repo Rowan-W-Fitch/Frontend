@@ -68,7 +68,6 @@ class AuthContainer extends Container {
   }
 
   checkAuth(){
-    console.log("checking auth")
     if(this.state.user && this.state.user != "null") return true
     else return false
   }
