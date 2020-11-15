@@ -119,7 +119,7 @@ class Register extends React.Component{
             <Col>
             </Col>
             <Col>
-              <Card style={{ marginTop: "5%", marginLeft: "45%",  width: "50rem"}}>
+              <Card style={{ marginLeft: "45%",  width: "300px"}}>
                 <Card.Header>
                   <img src = {logo2} width="50" height="50"/><b>Register Your Optimal Stoke Account</b>
                 </Card.Header>
