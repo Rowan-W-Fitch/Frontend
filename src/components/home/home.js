@@ -133,7 +133,7 @@ class Home extends React.Component{
                 </Card>
               </Row>
 
-              <Row className = "mt-3" style = {{justifyContent: "center"}}>
+              <Row className = "mt-3 mb-3" style = {{justifyContent: "center"}}>
                 <Card style = {{width: "70rem", overflowY: "scroll"}}>
                   <Card.Header className = "text-center"><b>{this.state.Spots ? "Your Top Spots" : "About the Dev"}</b></Card.Header>
                   <Card.Body>
