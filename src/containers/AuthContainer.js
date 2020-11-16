@@ -23,14 +23,20 @@ class AuthContainer extends Container {
           password: password
         })
       })
-      this.setState({
-        user:{
-          token: res.token,
-          id: res.id
-        }
-      })
-      Cookies.set("token", res.token)
-      return true
+      if(res.status === 200) {
+        this.setState({
+          user:{
+            token: res.token,
+            id: res.id
+          }
+        })
+        Cookies.set("token", res.token)
+        return true
+      }
+      else{
+        alert("invalid login credentials")
+        return false
+      }
     }
     catch(e){
       console.log(e);
@@ -53,14 +59,20 @@ class AuthContainer extends Container {
           password: password
         })
       })
-      this.setState({
-        user:{
-          token: res.token,
-          id: res.id
-        }
-      })
-      Cookies.set("token", res.token)
-      return true
+      if(res.status === 200) {
+        this.setState({
+          user:{
+            token: res.token,
+            id: res.id
+          }
+        })
+        Cookies.set("token", res.token)
+        return true
+      }
+      else{
+        alert("invalid login credentials")
+        return false
+      }
     }
     catch(e){
       alert(e);

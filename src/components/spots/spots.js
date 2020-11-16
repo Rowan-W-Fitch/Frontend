@@ -47,26 +47,10 @@ class Spots extends React.Component{
   render(){
     const APIKey = process.env.REACT_APP_GOOGLE_API_KEY
     const logged = this.props.auth.checkAuth()
-    console.log("logged: ", logged)
-    const styles = {
-      content:{
-        minHeight: "100vh",
-        height: "100%",
-        display: "block",
-        position: "absolute",
-        width: "100%",
-        height: "100%",
-        backgroundImage: `url(${ptDume})`,
-        backgroundPosition: 'top left',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        opacity: 1.6,
-      }
-    }
     return(
       logged ?
       (
-      <div style = {styles.content} >
+      <div>
         <Navbar bg="light" variant = "light">
           <Navbar.Brand>
           <img

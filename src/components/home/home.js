@@ -15,7 +15,6 @@ import ImageFadeIn from "react-image-fade-in";
 import { GoogleComponent } from 'react-google-location'
 import InfiniteScroll from 'react-infinite-scroller'
 import rowan from '../imgs/rowan.JPG'
-import './home.css'
 import AuthContainer from '../../containers/AuthContainer'
 import { Redirect } from 'react-router-dom'
 import { Subscribe } from 'unstated';
@@ -118,8 +117,8 @@ class Home extends React.Component{
         <Container fluid>
           <Row>
             <Col>
-              <Row>
-                <Card className = "mt-3" style = {{width: "70rem", marginLeft: "40%"}}>
+              <Row style = {{justifyContent: "center"}}>
+                <Card className = "mt-3" style = {{width: "70rem"}}>
                   <Card.Header className="text-center"><b>Welcome To Optimal Stoke!</b></Card.Header>
                   <Card.Body>
                     <li>First, you enter your starting address (or you can share your current location)</li>
@@ -134,8 +133,8 @@ class Home extends React.Component{
                 </Card>
               </Row>
 
-              <Row className = "mt-3">
-                <Card style = {{width: "70rem", marginLeft: "40%", maxHeight: "570px",  overflowY: "scroll"}}>
+              <Row className = "mt-3" style = {{justifyContent: "center"}}>
+                <Card style = {{width: "70rem", overflowY: "scroll"}}>
                   <Card.Header className = "text-center"><b>{this.state.Spots ? "Your Top Spots" : "About the Dev"}</b></Card.Header>
                   <Card.Body>
                   {this.state.Spots ?
