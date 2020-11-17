@@ -82,39 +82,35 @@ class Login extends React.Component{
       (
         <div style = {styles.content}>
           <Container>
-            <Row>
-              <Col>
-              </Col>
-              <Col>
-                <Card style={{ marginTop: "5%", marginLeft: "40%", width: "300px"}}>
-                  <Card.Header>
-                    <img src = {logo2} width="50" height="50"/><b>Sign In</b>
-                  </Card.Header>
-                  <Card.Body>
-                  <Form>
-                    <Form.Group controlId="formUser">
-                      <Form.Label>User Name</Form.Label>
-                      <Form.Control type="text" value = {this.state.username} onChange = {this.handleUChange} defaultValue="Bob" />
-                    </Form.Group>
-                    <Form.Group controlId="formGroupEmail">
-                      <Form.Label>Email</Form.Label>
-                      <Form.Control type="email" value = {this.state.email} onChange = {this.handleEmailChange} />
-                    </Form.Group>
-                    <Form.Group controlId="formGroupPassword">
-                      <Form.Label>Password</Form.Label>
-                      <Form.Control type="password" value = {this.state.password} onChange = {this.handlePassChange} />
-                    </Form.Group>
-                    <Button style = {{ marginTop: '25px', height: "100%" }} variant="primary" size = "lg" block onClick = { () => this.sendData() }>
-                      Login
-                    </Button>
-                  </Form>
-                  <div style = {{marginTop: "2%" }}>
-                    <Link to={"/register"}><b>Don't Have An Account?</b></Link>
-                  </div>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
+                <Row style ={{justifyContent: "center"}}>
+                  <Card style={{ marginTop: "15%", width: "300px"}}>
+                    <Card.Header>
+                      <img src = {logo2} width="50" height="50"/><b>Sign In</b>
+                    </Card.Header>
+                    <Card.Body>
+                    <Form>
+                      <Form.Group controlId="formUser">
+                        <Form.Label>User Name</Form.Label>
+                        <Form.Control type="text" value = {this.state.username} onChange = {this.handleUChange} defaultValue="Bob" />
+                      </Form.Group>
+                      <Form.Group controlId="formGroupEmail">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" value = {this.state.email} onChange = {this.handleEmailChange} />
+                      </Form.Group>
+                      <Form.Group controlId="formGroupPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" value = {this.state.password} onChange = {this.handlePassChange} />
+                      </Form.Group>
+                      <Button style = {{ marginTop: '25px', height: "100%" }} variant="primary" size = "lg" block onClick = { () => this.sendData() }>
+                        Login
+                      </Button>
+                    </Form>
+                    <div style = {{marginTop: "2%" }}>
+                      <Link to={"/register"}><b>Don't Have An Account?</b></Link>
+                    </div>
+                    </Card.Body>
+                  </Card>
+                </Row>
           </Container>
         </div>
       ))

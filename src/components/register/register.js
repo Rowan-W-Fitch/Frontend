@@ -115,11 +115,8 @@ class Register extends React.Component{
       (
       <div style = {styles.content}>
         <Container>
-          <Row>
-            <Col>
-            </Col>
-            <Col>
-              <Card style={{ marginTop: "1%", marginLeft: "40%",  width: "400px"}}>
+          <Row style ={{justifyContent: "center"}}>
+              <Card style={{ marginTop: "1%", width: "400px"}}>
                 <Card.Header>
                   <img src = {logo2} width="50" height="50"/><b>Register Your Optimal Stoke Account</b>
                 </Card.Header>
@@ -150,7 +147,6 @@ class Register extends React.Component{
                 </div>
                 </Card.Body>
               </Card>
-            </Col>
           </Row>
         </Container>
       </div>
