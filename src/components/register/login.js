@@ -83,7 +83,7 @@ class Login extends React.Component{
         <div style = {styles.content}>
           <Container>
                 <Row style ={{justifyContent: "center"}}>
-                  <Card style={{ marginTop: "15%", width: "300px"}}>
+                  <Card style={{ marginTop: "5%", width: "300px"}}>
                     <Card.Header>
                       <img src = {logo2} width="50" height="50"/><b>Sign In</b>
                     </Card.Header>
