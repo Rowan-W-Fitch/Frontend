@@ -124,15 +124,15 @@ class Register extends React.Component{
                 <Form>
                   <Form.Group controlId="formUser">
                     <Form.Label>User Name</Form.Label>
-                    <Form.Control type="text" placeholder="Dude123"  ref = "user_name_input" value = {this.state.username} onChange = {this.handleUChange}/>
+                    <Form.Control type="text" ref = "user_name_input" value = {this.state.username} onChange = {this.handleUChange}/>
                   </Form.Group>
                   <Form.Group controlId="formGroupEmail">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="hbshreder@gmail.com" ref = "email_input" value = {this.state.email} onChange = {this.handleEmailChange} />
+                    <Form.Control type="email" ref = "email_input" value = {this.state.email} onChange = {this.handleEmailChange} />
                   </Form.Group>
                   <Form.Group controlId="formGroupPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="surferDude123" ref = "pass1_input" value = {this.state.password} onChange = {this.handlePassChange} />
+                    <Form.Control type="password" ref = "pass1_input" value = {this.state.password} onChange = {this.handlePassChange} />
                   </Form.Group>
                   <Form.Group controlId="formGroupPassword2">
                     <Form.Label>Verify Password</Form.Label>
