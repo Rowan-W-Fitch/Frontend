@@ -108,10 +108,6 @@ class Login extends React.Component{
                         <Form.Label>User Name</Form.Label>
                         <Form.Control type="text" value = {this.state.username} onChange = {this.handleUChange} defaultValue="Bob" />
                       </Form.Group>
-                      <Form.Group controlId="formGroupEmail">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" value = {this.state.email} onChange = {this.handleEmailChange} />
-                      </Form.Group>
                       <Form.Group controlId="formGroupPassword">
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" value = {this.state.password} onChange = {this.handlePassChange} />
