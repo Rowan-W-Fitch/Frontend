@@ -148,7 +148,18 @@ class Home extends React.Component{
                           hasMore={false}
                           useWindow={false}
                           >
-                            {this.state.Spots.map( s => (<Row className = "mb-3"><MapCard startLat={this.state.startLat} startLng = {this.state.startLon} endLat = {s.lat} endLng = {s.lon} beachName = {s.name}/></Row>))}
+                            {this.state.Spots.map( s => (
+                              <Row className = "mb-3">
+                                <MapCard
+                                startLat={this.state.startLat}
+                                startLng = {this.state.startLon}
+                                endLat = {s.lat}
+                                endLng = {s.lon}
+                                beachName = {s.name}
+                                report = {s.report}
+                                url = {s.surfline_url}
+                                />
+                              </Row>))}
                           </InfiniteScroll>
                         </div>
                       )

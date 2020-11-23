@@ -10,6 +10,9 @@ import {
   InputGroup
 } from "@blueprintjs/core"
 import pavones from "../imgs/Pavones.jpg"
+import dume from "../imgs/Pt_Dume.jpg"
+import Hb from "../imgs/HB_Offshore.jpg"
+import bturn from "../imgs/bottom_turn.jpg"
 import { Route, Redirect, Link } from 'react-router-dom'
 import AuthContainer from '../../containers/AuthContainer'
 import { Subscribe } from 'unstated';
@@ -25,7 +28,14 @@ class Login extends React.Component{
       email: '',
       username: '',
       password: '',
+      rando: ''
     }
+  }
+
+  componentDidMount(){
+    this.setState({
+      rando: this.getRandomInt(4)
+    })
   }
 
   handleEmailChange = (event) => {
@@ -56,7 +66,12 @@ class Login extends React.Component{
     }
   }
 
+  getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
   render(){
+    const pics = [pavones, dume, Hb, bturn]
     const styles = {
       content:{
         minHeight: "100vh",
@@ -65,7 +80,7 @@ class Login extends React.Component{
         position: "absolute",
         width: "100%",
         height: "100%",
-        backgroundImage: `url(${pavones})`,
+        backgroundImage: `url(${pics[this.state.rando]})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',

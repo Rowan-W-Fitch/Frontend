@@ -28,7 +28,7 @@ export class MapCard extends React.Component{
     const startLng = this.props.startLng
     const endLat = this.props.endLat
     const endLng = this.props.endLng
-    
+
     const MapWithADirectionsRenderer = compose(
       withProps({
         googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${APIKey}&v=3.exp&libraries=geometry,drawing,places`,
@@ -70,7 +70,14 @@ export class MapCard extends React.Component{
       <Container>
         <Card>
           <Card.Header>
-            <b>{this.props.beachName}</b>
+            <Row>
+              <Col md={4}>
+                <b>{`${this.props.beachName} (${this.props.report})`}</b>
+              </Col>
+              <Col md={{ span: 4, offset: 4 }}>
+                <a style = {{marginLeft: "50%"}} href = {this.props.url} target={"_blank"} rel={"noopener noreferrer"}>View On Surfline.com</a>
+              </Col>
+            </Row>
           </Card.Header>
           <Card.Body>
             <MapWithADirectionsRenderer/>
