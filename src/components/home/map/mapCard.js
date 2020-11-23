@@ -75,7 +75,7 @@ export class MapCard extends React.Component{
                 <b>{`${this.props.beachName} (${this.props.report})`}</b>
               </Col>
               <Col md={{ span: 4, offset: 4 }}>
-                <a style = {{marginLeft: "10%"}} href = {this.props.url} target={"_blank"} rel={"noopener noreferrer"}>View On Surfline.com</a>
+                <a style = {{marginLeft: "20%"}} href = {this.props.url} target={"_blank"} rel={"noopener noreferrer"}>View On Surfline.com</a>
               </Col>
             </Row>
           </Card.Header>
